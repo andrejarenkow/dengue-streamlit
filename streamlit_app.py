@@ -13,8 +13,11 @@ ano = st.selectbox('Selecione o ano', dados_dengue['Ano'].unique())
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
 
+# Qual index
+index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
+
 # Create a pivot table
-pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='Nome Munic\u00edpio', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 # Print the pivot table
 pivot_table
