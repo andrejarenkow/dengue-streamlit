@@ -10,7 +10,11 @@ dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 # Criar um input widget (filtro)
 ano = st.selectbox('Selecione o ano', dados_dengue['Ano'].unique())
 
-
 # Filtrar o dataframe
-dados_dengue_2024 = dados_dengue.loc[dados_dengue['Ano']==ano]
-dados_dengue_2024
+dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
+
+# Create a pivot table
+pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='Nome Munic\u00edpio', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+
+# Print the pivot table
+pivot_table
