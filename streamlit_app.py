@@ -23,3 +23,18 @@ pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index
 # Print the pivot table
 pivot_table
 
+#teste 1
+dados_dengue_final = dados_dengue.set_index("Cód IBGE")
+
+#testa mapa
+map_fig = px.choropleth_mapbox(dados_dengue, geojson=dados_andre.geometry,
+                          locations=dados_dengue_final.index, color='Confirmados',
+                          color_continuous_scale = px.colors.diverging.hot,
+                          center ={'lat':-30.452349861219243, 'lon':-53.55320517512141},
+                          zoom=5.5,
+                          mapbox_style="carto-darkmatter",
+                          hover_name='NM_MUN',
+                          width=800,
+                          height=700,
+                          template='plotly_dark',
+                          title = f'Casos confirmados: {ano}')
