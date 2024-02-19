@@ -21,3 +21,7 @@ pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index
 
 # Print the pivot table
 pivot_table
+
+# Plotar o gráfico
+st.write("Gráfico:")
+st.line_chart(dados_dengue_ano, values='Confirmados')  
