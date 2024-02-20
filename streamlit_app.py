@@ -43,8 +43,9 @@ pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index
 with coluna_dados:
     pivot_table
 
-#teste 1
-dados_dengue_final = dados_dengue.set_index("Cód IBGE")
+#Cálculo do total de confirmados
+#total_confirmados = 
+dados_dengue_ano
 
 # Plotar um botão
 #if st.button('Clique aqui'):
