@@ -65,7 +65,7 @@ with coluna_filtros:
     st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
-dados_dengue_consolidados = dados_dengue.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
+dados_dengue_consolidados = dados_dengue.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'})#.reset_index()
 
 dados_dengue_consolidados
 
