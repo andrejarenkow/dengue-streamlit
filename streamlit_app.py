@@ -64,6 +64,7 @@ with coluna_filtros:
     coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
     st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 
+dados_dengue
 # Plotar um botão
 #if st.button('Clique aqui'):
 #    st.write('Botão clicado!')
