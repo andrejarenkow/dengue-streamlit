@@ -52,7 +52,7 @@ total_obitos = dados_dengue_ano['Óbitos'].sum()
 
 #Cálculo da porcentagem de confirmação em relação às notificações
 total_notificacoes = dados_dengue_ano['Notificações'].sum()
-porcentagem_notificacoes = total_confirmados*100/total_notificacoes
+porcentagem_notificacoes = (total_confirmados*100/total_notificacoes).round(1)
 
 with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
