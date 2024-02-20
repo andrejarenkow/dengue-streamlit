@@ -65,10 +65,10 @@ with coluna_filtros:
     st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
-dados_dengue_consolidados = dados_dengue.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'})#.reset_index()
+dados_dengue_consolidados = dados_dengue.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
 
-dados_dengue_consolidados
-
+fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True)
+st.plotly_chart(fig)
 # Plotar um botão
 #if st.button('Clique aqui'):
 #    st.write('Botão clicado!')
