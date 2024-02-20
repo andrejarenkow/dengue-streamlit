@@ -53,11 +53,12 @@ total_obitos = dados_dengue_ano['Óbitos'].sum()
 #Cálculo da porcentagem de confirmação em relação às notificações
 total_notificacoes = dados_dengue_ano['Notificações'].sum()
 porcentagem_notificacoes = (total_confirmados*100/total_notificacoes).round(1)
+valor_porcentagem = str(porcentagem_notificacoes) + '%'
 
 with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
     coluna_confirmados.metric(label="Confirmados", value=total_confirmados)
-    coluna_porcentagem.metric(label='% confirmados', value=porcentagem_notificacoes)
+    coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
     st.metric(label="Óbitos", value=total_obitos)
 
 # Plotar um botão
