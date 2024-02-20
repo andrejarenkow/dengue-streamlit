@@ -46,6 +46,7 @@ with coluna_dados:
 
 #Cálculo do total de confirmados
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
+casos_novos_semana = pivot_table.iloc[:, -1].sum()
 
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
@@ -57,7 +58,7 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 
 with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
-    coluna_confirmados.metric(label="Confirmados", value=total_confirmados)
+    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana)
     coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
     st.metric(label="Óbitos", value=total_obitos)
 
