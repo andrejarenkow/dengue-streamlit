@@ -68,7 +68,7 @@ with coluna_filtros:
 dados_dengue_2020_atual = dados_dengue[dados_dengue['Ano']>2019]
 dados_dengue_consolidados = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
 
-fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True)
+fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
 st.plotly_chart(fig, use_container_width=True)
 # Plotar um botão
 #if st.button('Clique aqui'):
