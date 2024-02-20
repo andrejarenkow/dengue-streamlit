@@ -44,8 +44,8 @@ with coluna_dados:
     pivot_table
 
 #Cálculo do total de confirmados
-#total_confirmados = 
-dados_dengue_ano
+total_confirmados = dados_dengue_ano['Confirmados'].sum()
+st.metric(label="Confirmados", value=total_confirmados)
 
 # Plotar um botão
 #if st.button('Clique aqui'):
