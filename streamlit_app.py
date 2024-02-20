@@ -19,6 +19,7 @@ col3.image('https://github.com/andrejarenkow/csv/blob/master/logo_estado%20(3)%2
 
 #Layout padrão
 coluna_filtros, coluna_dados = st.columns([1,4])
+container_filtros = st.container(border=True)
 
 
 # Carrega dados de casos de dengue de um arquivo CSV
@@ -27,14 +28,16 @@ dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 
 # Criar um input widget (filtro)
 with coluna_filtros:
-    ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
+    with container_filtros:
+        ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
 
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
 
 # Qual index
 with coluna_filtros:
-    index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
+    with container_filtros:
+        index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
