@@ -3,6 +3,19 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
+# Configurações da página
+st.set_page_config(
+    page_title="Dengue RS",
+    page_icon=":rainbow:",
+    layout="wide",
+    initial_sidebar_state='collapsed'
+)
+
+col1, col2, col3 = st.columns([1,4,1])
+
+col1.image('https://github.com/andrejarenkow/csv/blob/master/logo_cevs%20(2).png?raw=true', width=100)
+col2.header('Painel Alternativo Dengue')
+col3.image('https://github.com/andrejarenkow/csv/blob/master/logo_estado%20(3)%20(1).png?raw=true', width=150)
 
 # Carrega dados de casos de dengue de um arquivo CSV
 arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
