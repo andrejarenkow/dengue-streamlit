@@ -39,6 +39,7 @@ with container_filtros:
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 # Print the pivot table
 with coluna_dados:
@@ -50,6 +51,7 @@ casos_novos_semana = int(pivot_table.iloc[:, -1].sum())
 
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
+obitos_novos_semana = int(pivot_table_obitos.iloc[:, -1].sum())
 
 #Cálculo da porcentagem de confirmação em relação às notificações
 total_notificacoes = dados_dengue_ano['Notificações'].sum()
@@ -59,9 +61,9 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 with coluna_filtros:
     casos_novos_semana
     coluna_confirmados, coluna_porcentagem = st.columns(2)
-    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana)
+    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
     coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
-    st.metric(label="Óbitos", value=total_obitos)
+    st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 
 # Plotar um botão
 #if st.button('Clique aqui'):
