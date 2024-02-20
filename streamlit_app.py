@@ -22,7 +22,6 @@ coluna_filtros, coluna_dados = st.columns([1,4])
 with coluna_filtros:
     container_filtros = st.container(border=True)
 
-
 # Carrega dados de casos de dengue de um arquivo CSV
 arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
 dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
@@ -51,10 +50,15 @@ total_confirmados = dados_dengue_ano['Confirmados'].sum()
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
 
+#Cálculo da porcentagem de confirmação em relação às notificações
+total_notificacoes = dados_dengue_ano['Notificações'].sum()
+porcentagem_notificacoes = total_confirmados*100/total_notificacoes
+
 with coluna_filtros:
-    coluna_confirmados, coluna_obitos = st.columns(2)
+    coluna_confirmados, coluna_porcentagem = st.columns(2)
     coluna_confirmados.metric(label="Confirmados", value=total_confirmados)
-    coluna_obitos.metric(label="Óbitos", value=total_obitos)
+    coluna_porcentagem.metric(label='% confirmados', value=porcentagem_notificacoes)
+    st.metric(label="Óbitos", value=total_obitos)
 
 # Plotar um botão
 #if st.button('Clique aqui'):
