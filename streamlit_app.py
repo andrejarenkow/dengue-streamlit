@@ -46,7 +46,7 @@ with coluna_dados:
 
 #Cálculo do total de confirmados
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
-casos_novos_semana = pivot_table.iloc[:, -1].sum()
+casos_novos_semana = int(pivot_table.iloc[:, -1].sum())
 
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
