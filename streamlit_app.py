@@ -49,7 +49,7 @@ with coluna_dados:
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
 
 #Cálculo do total de óbitos
-total_obitos = dados_dengue_ano['Obitos'].sum()
+total_obitos = dados_dengue_ano['Óbitos'].sum()
 
 with coluna_filtros:
     st.metric(label="Confirmados", value=total_confirmados)
