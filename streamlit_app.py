@@ -52,8 +52,9 @@ total_confirmados = dados_dengue_ano['Confirmados'].sum()
 total_obitos = dados_dengue_ano['Óbitos'].sum()
 
 with coluna_filtros:
-    st.metric(label="Confirmados", value=total_confirmados)
-    st.metric(label="Óbitos", value=total_obitos)
+    coluna_confirmados, coluna_obitos = st.columns(2)
+    coluna_confirmados.metric(label="Confirmados", value=total_confirmados)
+    coluna_obitos.metric(label="Óbitos", value=total_obitos)
 
 # Plotar um botão
 #if st.button('Clique aqui'):
