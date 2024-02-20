@@ -57,8 +57,9 @@ porcentagem_notificacoes = (total_confirmados*100/total_notificacoes).round(1)
 valor_porcentagem = f'{porcentagem_notificacoes}%'
 
 with coluna_filtros:
+    casos_novos_semana
     coluna_confirmados, coluna_porcentagem = st.columns(2)
-    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana)
+    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = 0)
     coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
     st.metric(label="Óbitos", value=total_obitos)
 
