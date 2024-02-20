@@ -28,17 +28,15 @@ arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
 dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 
 # Criar um input widget (filtro)
-#with coluna_filtros:
 with container_filtros:
-        ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
+    ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
 
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
 
 # Qual index
-with coluna_filtros:
-    with container_filtros:
-        index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
+with container_filtros:
+    index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
@@ -50,8 +48,12 @@ with coluna_dados:
 #Cálculo do total de confirmados
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
 
+#Cálculo do total de óbitos
+total_obitos = dados_dengue_ano['Obitos'].sum()
+
 with coluna_filtros:
     st.metric(label="Confirmados", value=total_confirmados)
+    st.metric(label="Óbitos", value=total_obitos)
 
 # Plotar um botão
 #if st.button('Clique aqui'):
