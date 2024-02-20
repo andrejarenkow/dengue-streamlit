@@ -19,7 +19,8 @@ col3.image('https://github.com/andrejarenkow/csv/blob/master/logo_estado%20(3)%2
 
 #Layout padrão
 coluna_filtros, coluna_dados = st.columns([1,4])
-container_filtros = st.container(border=True)
+with coluna_filtros:
+    container_filtros = st.container(border=True)
 
 
 # Carrega dados de casos de dengue de um arquivo CSV
