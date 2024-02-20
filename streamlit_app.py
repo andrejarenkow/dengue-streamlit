@@ -22,7 +22,7 @@ arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
 dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 
 # Criar um input widget (filtro)
-ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()))
+ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
 
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
