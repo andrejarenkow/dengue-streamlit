@@ -40,8 +40,8 @@ with container_filtros:
 dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
 dados_dengue_ano
 # Create a pivot table
-pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='Município', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
-pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index='Município', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='Nome Município', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index='Nome Município', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 # Print the pivot table
 with coluna_dados:
