@@ -51,7 +51,7 @@ pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index='N
 with coluna_dados:
     heatmap_fig = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=800,
                             title=f'Casos por semana epidemiológica por município, RS, {ano}')
-    st.plotly_chart(heatmap_fig, use_container_width=True)
+    st.plotly_chart(heatmap_fig, use_container_width=False)
 
 
 #Cálculo do total de confirmados
