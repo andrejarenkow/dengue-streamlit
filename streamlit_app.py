@@ -25,6 +25,7 @@ with coluna_filtros:
 # Carrega dados de casos de dengue de um arquivo CSV
 arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
 dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
+dados_dengue['CRS'] = dados_dengue['CRS'].astype(str)
 
 # Criar um input widget (filtro)
 with container_filtros:
