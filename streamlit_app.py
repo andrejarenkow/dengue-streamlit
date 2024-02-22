@@ -49,7 +49,9 @@ pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index='N
 
 # Print the pivot table
 with coluna_dados:
-    pivot_table
+    heatmap_fig = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd')
+    #st.plotly_chart(heatmap_fig, use_container_width=True)
+    heatmap_fig
 
 #Cálculo do total de confirmados
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
