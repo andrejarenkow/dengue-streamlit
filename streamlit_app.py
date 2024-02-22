@@ -35,7 +35,7 @@ dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
 dados_dengue_ano
 # Qual index
 with container_filtros:
-    index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
+    crs_selecionada = st.selectbox('Selecione qual variável quer na linha', [1:18])
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
