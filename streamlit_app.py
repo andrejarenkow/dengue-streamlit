@@ -35,7 +35,7 @@ dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
 
 # Qual index
 with container_filtros:
-    lista_crs = list(dados_dengue['CRS'].unique())
+    lista_crs = (dados_dengue['CRS'].unique()).tolist()
     lista_crs.append('Todas')
     crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs)
 
