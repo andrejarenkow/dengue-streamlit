@@ -74,7 +74,13 @@ with coluna_filtros:
     st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
-dados_dengue_2020_atual = dados_dengue[dados_dengue['Ano']>2019]
+# Filtrar o dataframe
+if crs_selecionada == 'Todas':
+    dados_dengue_2020_atual = dados_dengue[(dados_dengue['Ano']>2019)]
+
+else:
+    dados_dengue_2020_atual = dados_dengue[(dados_dengue['Ano']>2019)&(dados_dengue['CRS'] == crs_selecionada)]
+    
 dados_dengue_consolidados = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
 
 fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
