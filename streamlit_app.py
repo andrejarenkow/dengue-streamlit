@@ -37,7 +37,11 @@ with container_filtros:
     crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs)
 
 # Filtrar o dataframe
-dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
+if crs_selecionada == 'Todas':
+    dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)]
+
+else:
+    dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
 dados_dengue_ano
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='Nome Município', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
