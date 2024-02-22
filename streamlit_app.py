@@ -34,7 +34,7 @@ with container_filtros:
 with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
     lista_crs.append('Todas')
-    crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs)
+    crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs, index=18)
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
