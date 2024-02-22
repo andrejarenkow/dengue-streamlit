@@ -51,15 +51,16 @@ pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', 
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 # Print the pivot table
+altura_dinamica = 800/24*len(pivot_table)
 with coluna_dados:
     aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
     with aba_confirmados:
-        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=800,
+        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica,
                                 title=f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
     with aba_notificacoes:
-        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=800,
+        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica,
                                 title=f'Notificações por semana epidemiológica por município, RS, {ano}')
         st.plotly_chart(heatmap_fig_notific, use_container_width=False)    
 
