@@ -69,6 +69,10 @@ with coluna_dados:
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
 casos_novos_semana = int(pivot_table.iloc[:, -1].sum())
 
+#Cálculo do total de notificações
+total_notific = dados_dengue_ano['Notificações'].sum()
+notific_novos_semana = int(pivot_table.iloc[:, -1].sum())
+
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
 obitos_novos_semana = int(pivot_table_obitos.iloc[:, -1].sum())
@@ -81,8 +85,10 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
     coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
+    coluna_confirmados.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
     coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
-    st.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
+    coluna_porcentagem.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
+    
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
 # Filtrar o dataframe
