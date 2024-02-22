@@ -32,10 +32,10 @@ with container_filtros:
 
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
-dados_dengue_ano
+
 # Qual index
 with container_filtros:
-    lista_crs = range(1,19)
+    lista_crs = dados_dengue['CRS'].unique()
     lista_crs.append('Todas')
     crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs)
 
