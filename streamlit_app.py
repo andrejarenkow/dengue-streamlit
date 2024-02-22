@@ -86,8 +86,9 @@ with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
     coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
     coluna_confirmados.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
-    coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
     coluna_porcentagem.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
+    coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
+    
     
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
