@@ -50,6 +50,7 @@ pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
+
 # Print the pivot table
 altura_dinamica = 800/24*len(pivot_table)
 with coluna_dados:
@@ -71,7 +72,7 @@ casos_novos_semana = int(pivot_table.iloc[:, -1].sum())
 
 #Cálculo do total de notificações
 total_notific = dados_dengue_ano['Notificações'].sum()
-notific_novos_semana = int(pivot_table.iloc[:, -1].sum())
+notific_novos_semana = int(pivot_table_notific.iloc[:, -1].sum())
 
 #Cálculo do total de óbitos
 total_obitos = dados_dengue_ano['Óbitos'].sum()
@@ -85,9 +86,10 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 with coluna_filtros:
     coluna_confirmados, coluna_porcentagem = st.columns(2)
     coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
-    coluna_porcentagem.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
-    coluna_porcentagem.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
     coluna_confirmados.metric(label='% confirmados', value=valor_porcentagem)
+    coluna_porcentagem.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
+    coluna_porcentagem.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
+    
     
     
 
