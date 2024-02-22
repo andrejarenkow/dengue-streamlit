@@ -32,7 +32,7 @@ with container_filtros:
 
 # Filtrar o dataframe
 dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
-
+dados_dengue_ano
 # Qual index
 with container_filtros:
     index_selecionado = st.selectbox('Selecione qual variável quer na linha', ['Nome Município', 'CRS'])
