@@ -30,18 +30,18 @@ dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 with container_filtros:
     ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
 
-# Filtrar o dataframe
-dados_dengue_ano = dados_dengue.loc[dados_dengue['Ano']==ano]
-
 # Qual index
 with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
     lista_crs.append('Todas')
     crs_selecionada = st.selectbox('Selecione qual variável quer na linha', lista_crs)
 
+# Filtrar o dataframe
+dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
+
 # Create a pivot table
-pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
-pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index='CRS', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index='CRS', columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 # Print the pivot table
 with coluna_dados:
