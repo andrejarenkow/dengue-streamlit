@@ -54,7 +54,7 @@ pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=in
 # Print the pivot table
 altura_dinamica = 800/24*len(pivot_table)
 with coluna_dados:
-    aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
+    aba_confirmados, aba_notificacoes, aba_teste = st.tabs(['Confirmados', 'Notificações', 'Teste'])
     with aba_confirmados:
         heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica, 
                                 title=f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
