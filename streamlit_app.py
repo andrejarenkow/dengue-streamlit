@@ -117,15 +117,15 @@ tabela_mapa_pop = tabela_mapa.merge(pop_municipios, left_on='Cód IBGE', right_o
 municipios = gpd.read_file('https://raw.githubusercontent.com/andrejarenkow/geodata/main/municipios_rs_CRS/RS_Municipios_2021.json')
 municipios['CD_MUN'] = municipios['CD_MUN'].astype(int)
 tabela_mapa_pop['incidencia_confirmados'] = (tabela_mapa_pop['Confirmados']/tabela_mapa_pop['POPULAÇÃO']*100000).round(2)
-tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE7', how='left')
+tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE7')
 tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
 
 #Mapa da incidência por município
 map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
                           locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
                           color_continuous_scale='OrRd',
-                          center ={'lat':-30.452349861219243, 'lon':-53.55320517512141},
-                          zoom=5.5,
+                          #center ={'lat':-30.452349861219243, 'lon':-53.55320517512141},
+                          #zoom=5.5,
                           mapbox_style="carto-darkmatter",
                           hover_name='NM_MUN',
                           width=800,
