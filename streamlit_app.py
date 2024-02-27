@@ -2,6 +2,8 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+import plotly.graph_objects as go
+import geopandas as gpd
 
 # Configurações da página
 st.set_page_config(
@@ -105,19 +107,35 @@ dados_dengue_consolidados = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epid
 
 fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
 st.plotly_chart(fig, use_container_width=True)
-# Plotar um botão
-#if st.button('Clique aqui'):
-#    st.write('Botão clicado!')
   
-#testa mapa
-#map_fig = px.choropleth_mapbox(dados_dengue, geojson=dados_andre.geometry,
-                         # locations=dados_dengue_final.index, color='Confirmados',
-                        # color_continuous_scale = px.colors.diverging.hot,
-                         # center ={'lat':-30.452349861219243, 'lon':-53.55320517512141},
-                         # zoom=5.5,
-                         # mapbox_style="carto-darkmatter",
-                         # hover_name='NM_MUN',
-                         # width=800,
-                         # height=700,
-                         # template='plotly_dark',
-                         # title = f'Casos confirmados: {ano}')
+# Mapa
+tabela_mapa = pd.pivot_table(dados_dengue_ano, values=['Confirmados', 'Notificações'],
+               index=['Nome Munic\u00edpio', 'Cód IBGE'],
+               aggfunc='sum', fill_value=0).reset_index()
+pop_municipios = pd.read_csv('https://raw.githubusercontent.com/andrejarenkow/csv/master/pop_censo_2022.csv', sep=';')
+tabela_mapa_pop = tabela_mapa.merge(pop_municipios, left_on='Cód IBGE', right_on='IBGE6')
+municipios = gpd.read_file('https://raw.githubusercontent.com/andrejarenkow/geodata/main/municipios_rs_CRS/RS_Municipios_2021.json')
+municipios['CD_MUN'] = municipios['CD_MUN'].astype(int)
+tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE7', how='left')
+tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
+
+#Mapa da incidência por município
+map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
+                          locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
+                          color_continuous_scale='OrRd',
+                          center ={'lat':-30.452349861219243, 'lon':-53.55320517512141},
+                          zoom=5.5,
+                          mapbox_style="carto-darkmatter",
+                          hover_name='NM_MUN',
+                          width=800,
+                          height=700,
+                          template='plotly_dark',
+                          title = 'Incidência de casos confirmados de dengue, RS, 2024')
+
+map_fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
+                                  )
+map_fig.update_traces(marker_line_width=0.2)
+map_fig.update_coloraxes(colorbar={'orientation':'h'},
+                         colorbar_yanchor='bottom',
+                         colorbar_y=-0.13)
+st.plotly_chart(map_fig, use_container_width=True)
