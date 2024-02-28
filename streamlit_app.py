@@ -46,12 +46,12 @@ with container_filtros:
 if crs_selecionada == 'Todas':
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)]
     index_selecionado = 'CRS'
+    pop_municipios_index = pd.DataFrame()
 else:
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
+    pop_municipio_crs = pop_municipios.loc[(pop_municipios['CRS'] == crs_selecionada)]
     index_selecionado = 'Nome Município'
-
-# Cria a nova tabela base para juntar todos
-pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipios['Munic\u00edpio'].unique())
+    pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipio_crs['Munic\u00edpio'].unique())
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
