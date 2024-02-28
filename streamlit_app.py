@@ -152,11 +152,11 @@ map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           #zoom=5.5,
-                          mapbox_style="carto-darkmatter",
+                          mapbox_style="open-street-map",
                           hover_name='NM_MUN',
                           width=800,
                           height=700,
-                          template='plotly_dark',
+                          #template='plotly_dark',
                           title = 'Incidência de casos confirmados de dengue, RS, 2024')
 
 map_fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
