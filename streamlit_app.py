@@ -46,11 +46,12 @@ if crs_selecionada == 'Todas':
     pop_municipio_crs = pop_municipios.copy() #criação fake
     index_selecionado = 'CRS'
     pop_municipios_index = pd.DataFrame()
+    zoom_ini = 5.5
 else:
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
     pop_municipio_crs = pop_municipios.loc[(pop_municipios['CRS'] == crs_selecionada)]
     pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipio_crs['Munic\u00edpio'].unique())
-
+    zoom_ini = 9
     index_selecionado = 'Nome Município'
 
 # Create a pivot table
@@ -158,7 +159,7 @@ map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tab
                           locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
-                          zoom=5.5,
+                          zoom=zoom_ini,
                           mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
@@ -178,7 +179,7 @@ map_fig_notificacoes = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=ta
                           locations=tabela_geo_mapa_pop_inci.index, color='incidencia_notificacoes',
                           color_continuous_scale='Blues',
                           center ={'lat':latitude_media, 'lon':longitude_media},
-                          zoom=5.5,
+                          zoom=zoom_ini,
                           mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
