@@ -50,8 +50,9 @@ if crs_selecionada == 'Todas':
 else:
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
     pop_municipio_crs = pop_municipios.loc[(pop_municipios['CRS'] == crs_selecionada)]
-    index_selecionado = 'Nome Município'
     pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipio_crs['Munic\u00edpio'].unique())
+
+    index_selecionado = 'Nome Município'
 
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
@@ -69,11 +70,13 @@ with coluna_dados:
     with aba_confirmados:
         heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica, 
                                 title=f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
+        heatmap_fig_conf.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
     with aba_notificacoes:
         heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica,
                                 title=f'Notificações por semana epidemiológica por município, RS, {ano}')
+        heatmap_fig_notific.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_notific, use_container_width=False)    
 
 
