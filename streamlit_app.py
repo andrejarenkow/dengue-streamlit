@@ -70,7 +70,7 @@ with coluna_dados:
     with aba_confirmados:
         st.write(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
         heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica)
-        heatmap_fig_conf.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
+        heatmap_fig_conf.update_layout(xaxis=dict(side='top', title='Semana Epidemiológica')) # Posicionando o rótulo do eixo X na parte superior
      # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
