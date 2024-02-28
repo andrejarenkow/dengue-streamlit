@@ -156,7 +156,7 @@ longitude_media = tabela_geo_mapa_pop_inci['geometry'].centroid.x.mean()
 
 #Mapa da incidência por município
 map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
-                          locations=tabela_geo_mapa_pop_inci.index, color='Confirmados',
+                          locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           zoom=zoom_ini,
