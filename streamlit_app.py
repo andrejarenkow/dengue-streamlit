@@ -140,7 +140,7 @@ municipios = gpd.read_file('https://raw.githubusercontent.com/andrejarenkow/geod
 municipios['CD_MUN'] = municipios['CD_MUN'].str[:6]
 municipios['CD_MUN'] = municipios['CD_MUN'].astype(int)
 
-tabela_mapa_pop['incidencia_confirmados'] = (tabela_mapa_pop['Confirmados']/tabela_mapa_pop['POPULAÇÃO']*100000).round(2)
+tabela_mapa_pop['incidencia_confirmados'] = (tabela_mapa_pop['Confirmados']/tabela_mapa_pop['População_estimada']*100000).round(2)
 tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE6', how='left')
 tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
 
