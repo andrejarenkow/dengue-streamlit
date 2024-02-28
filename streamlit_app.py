@@ -61,20 +61,25 @@ pivot_table = pd.concat([pop_municipios_index, pivot_table], axis=1).fillna(0)
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
-coluna_tabela, coluna_mapa_grafico = st.columns([2,2])
+#Criar as abas
+aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
+
+with aba_confirmados:
+    coluna_tabela_confirmados, coluna_mapa_grafico_confirmados = st.columns([2,2])
+
+with aba_notificacoes:
+    coluna_tabela_notificacoes, coluna_mapa_grafico_notificacoes = st.columns([2,2])
 
 # Print the pivot table
 altura_dinamica = 800/24*len(pivot_table)
-with coluna_tabela:
-    aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
-    with aba_confirmados:
+with coluna_tabela_confirmados:
         st.write(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
         heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica)
         heatmap_fig_conf.update_layout(xaxis=dict(side='top', title='Semana Epidemiológica')) # Posicionando o rótulo do eixo X na parte superior
      # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
-    with aba_notificacoes:
+with coluna_tabela_notificacoes:
         st.write(f'Notificações por semana epidemiológica por município, RS, {ano}')
         heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica)
         heatmap_fig_notific.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
@@ -116,10 +121,10 @@ else:
     dados_dengue_2020_atual = dados_dengue[(dados_dengue['Ano']>2019)&(dados_dengue['CRS'] == crs_selecionada)]
     
 dados_dengue_consolidados = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
+fig_confirmados = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
 
-fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
-
-
+dados_dengue_notific = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Notificações': 'sum'}).reset_index()
+fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='Notificações', color='Ano', markers=True, title='Notificações por semana epidemiológica, RS, 2020-2024')
   
 # Mapa
 # Criação da tabela suporte
@@ -166,6 +171,6 @@ map_fig.update_coloraxes(colorbar={'orientation':'h'},
                          colorbar_yanchor='bottom',
                          colorbar_y=-0.13)
 
-with coluna_mapa_grafico:
+with coluna_mapa_grafico_confirmados:
     st.plotly_chart(map_fig, use_container_width=True)
     st.plotly_chart(fig, use_container_width=True)
