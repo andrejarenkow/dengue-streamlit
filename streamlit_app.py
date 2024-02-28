@@ -28,6 +28,9 @@ with coluna_filtros:
 arquivo = 'https://ti.saude.rs.gov.br/ws/dengue_resid_csv.csv'
 dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 
+# Carrega dados de referência dos municípios
+pop_municipios = pd.read_csv('https://raw.githubusercontent.com/andrejarenkow/csv/master/Munic%C3%ADpios%20RS%20IBGE6%20Popula%C3%A7%C3%A3o%20CRS%20Regional%20-%20P%C3%A1gina1.csv')
+pop_municipios['Município'] = pop_municipios['Município'].replace("Sant'Ana do Livramento", 'Santana do Livramento')
 
 # Criar um input widget (filtro)
 with container_filtros:
@@ -47,8 +50,14 @@ else:
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
     index_selecionado = 'Nome Município'
 
+# Cria a nova tabela base para juntar todos
+pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipios['Munic\u00edpio'].unique())
+
 # Create a pivot table
 pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+# Concatenando as tabelas para gerar TUDO
+pivot_table = pd.concat([pop_municipios_index, pivot_table], axis=1).fillna(0)
+
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
