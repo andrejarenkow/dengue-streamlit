@@ -51,7 +51,7 @@ else:
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)&(dados_dengue['CRS'] == crs_selecionada)]
     pop_municipio_crs = pop_municipios.loc[(pop_municipios['CRS'] == crs_selecionada)]
     pop_municipios_index = pd.DataFrame(columns=[], index=pop_municipio_crs['Munic\u00edpio'].unique())
-    zoom_ini = 8
+    zoom_ini = 7
     index_selecionado = 'Nome Município'
 
 # Create a pivot table
