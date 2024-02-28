@@ -75,8 +75,8 @@ with coluna_dados:
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
     with aba_notificacoes:
-        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica,
-                                title=f'Notificações por semana epidemiológica por município, RS, {ano}')
+        st.write(f'Notificações por semana epidemiológica por município, RS, {ano}')
+        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica)
         heatmap_fig_notific.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_notific, use_container_width=False)    
 
