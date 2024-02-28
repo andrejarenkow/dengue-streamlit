@@ -20,7 +20,7 @@ col2.header('Painel Alternativo Dengue')
 col3.image('https://github.com/andrejarenkow/csv/blob/master/logo_estado%20(3)%20(1).png?raw=true', width=150)
 
 #Layout padrão
-coluna_filtros, coluna_dados = st.columns([1,4])
+coluna_filtros, coluna_notif, coluna_confirmados, coluna_porcentagem, coluna_obitos = st.columns(5)
 with coluna_filtros:
     container_filtros = st.container(border=True)
 
@@ -32,9 +32,7 @@ dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 pop_municipios = pd.read_csv('https://raw.githubusercontent.com/andrejarenkow/csv/master/Munic%C3%ADpios%20RS%20IBGE6%20Popula%C3%A7%C3%A3o%20CRS%20Regional%20-%20P%C3%A1gina1.csv')
 pop_municipios['Município'] = pop_municipios['Município'].replace("Sant'Ana do Livramento", 'Santana do Livramento')
 
-# Criar um input widget (filtro)
-with container_filtros:
-    ano = 2024#st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
+ano = 2024
 
 # Qual index
 with container_filtros:
@@ -63,10 +61,11 @@ pivot_table = pd.concat([pop_municipios_index, pivot_table], axis=1).fillna(0)
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
+coluna_tabela, coluna_mapa, coluna_grafico = st.columns(3)
 
 # Print the pivot table
 altura_dinamica = 800/24*len(pivot_table)
-with coluna_dados:
+with coluna_tabela:
     aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
     with aba_confirmados:
         st.write(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
@@ -99,12 +98,11 @@ total_notificacoes = dados_dengue_ano['Notificações'].sum()
 porcentagem_notificacoes = (total_confirmados*100/total_notificacoes).round(1)
 valor_porcentagem = f'{porcentagem_notificacoes}%'
 
-with coluna_filtros:
-    coluna_confirmados, coluna_porcentagem = st.columns(2)
-    coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
-    coluna_confirmados.metric(label='% confirmados', value=valor_porcentagem)
-    coluna_porcentagem.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
-    coluna_porcentagem.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
+# Cards com as métricas
+coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
+coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
+coluna_obitos.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
+coluna_notif.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
     
     
     
@@ -120,7 +118,9 @@ else:
 dados_dengue_consolidados = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Confirmados': 'sum'}).reset_index()
 
 fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirmados', color='Ano', markers=True, title='Casos confirmados por semana epidemiológica, RS, 2020-2024')
-st.plotly_chart(fig, use_container_width=True)
+
+with coluna_grafico:
+    st.plotly_chart(fig, use_container_width=True)
   
 # Mapa
 # Criação da tabela suporte
@@ -166,4 +166,6 @@ map_fig.update_traces(marker_line_width=0.2)
 map_fig.update_coloraxes(colorbar={'orientation':'h'},
                          colorbar_yanchor='bottom',
                          colorbar_y=-0.13)
-st.plotly_chart(map_fig, use_container_width=True)
+
+with coluna_mapa:
+    st.plotly_chart(map_fig, use_container_width=True)
