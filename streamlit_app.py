@@ -61,7 +61,7 @@ pivot_table = pd.concat([pop_municipios_index, pivot_table], axis=1).fillna(0)
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
-coluna_tabela, coluna_mapa_grafico = st.columns([2,1])
+coluna_tabela, coluna_mapa_grafico = st.columns([3,2])
 
 # Print the pivot table
 altura_dinamica = 800/24*len(pivot_table)
