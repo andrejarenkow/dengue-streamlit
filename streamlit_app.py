@@ -69,8 +69,8 @@ with coluna_dados:
     aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
     with aba_confirmados:
         st.subheader(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
-        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica,)
-        heatmap_fig_conf.update_layout(xaxis=dict(side='top')) # Ajustando a margem superior para criar espaço para o título
+        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica)
+        heatmap_fig_conf.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
      # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
