@@ -174,3 +174,7 @@ map_fig.update_coloraxes(colorbar={'orientation':'h'},
 with coluna_mapa_grafico_confirmados:
     st.plotly_chart(map_fig, use_container_width=True)
     st.plotly_chart(fig_confirmados, use_container_width=True)
+
+with coluna_mapa_grafico_confirmados:
+    st.plotly_chart(map_fig, use_container_width=True)
+    st.plotly_chart(fig_notificacoes, use_container_width=True)
