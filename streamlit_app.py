@@ -45,6 +45,7 @@ with container_filtros:
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
     dados_dengue_ano = dados_dengue.loc[(dados_dengue['Ano']==ano)]
+    pop_municipio_crs = pop_municipios.copy() #criação fake
     index_selecionado = 'CRS'
     pop_municipios_index = pd.DataFrame()
 else:
@@ -122,15 +123,25 @@ fig = px.line(dados_dengue_consolidados, x='Semana Epidemiológica', y='Confirma
 st.plotly_chart(fig, use_container_width=True)
   
 # Mapa
+# Criação da tabela suporte
+indice_mapa = pop_municipio_crs[['Município', 'IBGE6']].set_index(['Município', 'IBGE6'])
+
 tabela_mapa = pd.pivot_table(dados_dengue_ano, values=['Confirmados', 'Notificações'],
                index=['Nome Munic\u00edpio', 'Cód IBGE'],
-               aggfunc='sum', fill_value=0).reset_index()
-pop_municipios = pd.read_csv('https://raw.githubusercontent.com/andrejarenkow/csv/master/pop_censo_2022.csv', sep=';')
-tabela_mapa_pop = tabela_mapa.merge(pop_municipios, left_on='Cód IBGE', right_on='IBGE6')
+               aggfunc='sum', fill_value=0)
+tabela_mapa = pd.concat([tabela_mapa, indice_mapa], axis=1).fillna(0).reset_index()
+tabela_mapa.columns = ['Nome Munic\u00edpio', 'Cód IBGE', 'Confirmados', 'Notificações']
+
+tabela_mapa_pop = tabela_mapa.merge(pop_municipio_crs, left_on='Cód IBGE', right_on='IBGE6', how='right')
+tabela_mapa_pop['Confirmados'] = tabela_mapa_pop['Confirmados'].fillna(0)
+tabela_mapa_pop['Notificações'] = tabela_mapa_pop['Notificações'].fillna(0)
+                                    
 municipios = gpd.read_file('https://raw.githubusercontent.com/andrejarenkow/geodata/main/municipios_rs_CRS/RS_Municipios_2021.json')
+municipios['CD_MUN'] = municipios['CD_MUN'].str[:6]
 municipios['CD_MUN'] = municipios['CD_MUN'].astype(int)
+
 tabela_mapa_pop['incidencia_confirmados'] = (tabela_mapa_pop['Confirmados']/tabela_mapa_pop['POPULAÇÃO']*100000).round(2)
-tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE7')
+tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE6', how='left')
 tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
 
 #Mapa da incidência por município
