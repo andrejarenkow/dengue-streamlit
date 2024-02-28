@@ -145,18 +145,20 @@ municipios['CD_MUN'] = municipios['CD_MUN'].str[:6]
 municipios['CD_MUN'] = municipios['CD_MUN'].astype(int)
 
 tabela_mapa_pop['incidencia_confirmados'] = (tabela_mapa_pop['Confirmados']/tabela_mapa_pop['População_estimada']*100000).round(2)
+tabela_mapa_pop['incidencia_notificacoes'] = (tabela_mapa_pop['Notificações']/tabela_mapa_pop['População_estimada']*100000).round(2)
 tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', right_on='IBGE6')
 tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
+tabela_geo_mapa_pop_inci['incidencia_notificacoes'] = tabela_geo_mapa_pop_inci['incidencia_notificacoes'].fillna(0)
 
 latitude_media = tabela_geo_mapa_pop_inci['geometry'].centroid.y.mean()
 longitude_media = tabela_geo_mapa_pop_inci['geometry'].centroid.x.mean()
 
 #Mapa da incidência por município
-map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
+map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
                           locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
-                          #zoom=5.5,
+                          zoom=5.5,
                           mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
@@ -164,10 +166,30 @@ map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa
                           #template='plotly_dark',
                           title = 'Incidência de casos confirmados de dengue, RS, 2024')
 
-map_fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
+map_fig_confirmados.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
                                   )
-map_fig.update_traces(marker_line_width=0.2)
-map_fig.update_coloraxes(colorbar={'orientation':'h'},
+map_fig_confirmados.update_traces(marker_line_width=0.2)
+map_fig_confirmados.update_coloraxes(colorbar={'orientation':'h'},
+                         colorbar_yanchor='bottom',
+                         colorbar_y=-0.13)
+
+#Mapa da incidência por município
+map_fig_notificacoes = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
+                          locations=tabela_geo_mapa_pop_inci.index, color='incidencia_notificacoes',
+                          color_continuous_scale='Blues',
+                          center ={'lat':latitude_media, 'lon':longitude_media},
+                          zoom=5.5,
+                          mapbox_style="carto-positron",
+                          hover_name='NM_MUN',
+                          width=800,
+                          height=700,
+                          #template='plotly_dark',
+                          title = 'Incidência de Notificações de dengue, RS, 2024')
+
+map_fig_notificacoes.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
+                                  )
+map_fig_notificacoes.update_traces(marker_line_width=0.2)
+map_fig_notificacoes.update_coloraxes(colorbar={'orientation':'h'},
                          colorbar_yanchor='bottom',
                          colorbar_y=-0.13)
 
