@@ -152,7 +152,7 @@ map_fig = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           #zoom=5.5,
-                          mapbox_style="open-street-map",
+                          mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
                           height=700,
