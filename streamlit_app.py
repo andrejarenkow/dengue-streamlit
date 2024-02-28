@@ -34,7 +34,7 @@ pop_municipios['Município'] = pop_municipios['Município'].replace("Sant'Ana do
 
 # Criar um input widget (filtro)
 with container_filtros:
-    ano = st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
+    ano = 2024#st.selectbox('Selecione o ano', sorted(dados_dengue['Ano'].unique()), index=9)
 
 # Qual index
 with container_filtros:
