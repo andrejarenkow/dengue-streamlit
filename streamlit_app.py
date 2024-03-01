@@ -89,7 +89,7 @@ with coluna_tabela_notificacoes:
 # Aba de consolidados
 
 with aba_consolidados:
-    pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+    pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
     pivot_table_consolidados
 
 
