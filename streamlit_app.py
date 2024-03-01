@@ -162,8 +162,8 @@ tabela_geo_mapa_pop_inci =  municipios.merge(tabela_mapa_pop, left_on='CD_MUN', 
 tabela_geo_mapa_pop_inci['incidencia_confirmados'] = tabela_geo_mapa_pop_inci['incidencia_confirmados'].fillna(0)
 tabela_geo_mapa_pop_inci['incidencia_notificacoes'] = tabela_geo_mapa_pop_inci['incidencia_notificacoes'].fillna(0)
 
-latitude_media = tabela_geo_mapa_pop_inci['geometry'].centroid.y.mean()
-longitude_media = tabela_geo_mapa_pop_inci['geometry'].centroid.x.mean()
+latitude_media = tabela_geo_mapa_pop_inci['geometry'].to_crs(crs='3857').centroid.y.mean()
+longitude_media = tabela_geo_mapa_pop_inci['geometry'].to_crs(crs='3857').centroid.x.mean()
 
 #Mapa da incidência por município
 map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
