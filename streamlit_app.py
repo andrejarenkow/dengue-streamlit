@@ -126,7 +126,12 @@ fig_confirmados = px.line(dados_dengue_consolidados, x='Semana Epidemiológica',
 
 dados_dengue_notific = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Notificações': 'sum'}).reset_index()
 fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='Notificações', color='Ano', markers=True, title='Notificações por semana epidemiológica, RS, 2020-2024')
-  
+
+# Aba de consolidados
+
+with aba_consolidados:
+    dados_dengue_2020_atual
+
 # Mapa
 # Criação da tabela suporte
 indice_mapa = pop_municipio_crs[['Município', 'IBGE6']].set_index(['Município', 'IBGE6'])
