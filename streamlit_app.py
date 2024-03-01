@@ -63,7 +63,7 @@ pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', 
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
 
 #Criar as abas
-aba_confirmados, aba_notificacoes = st.tabs(['Confirmados', 'Notificações'])
+aba_confirmados, aba_notificacoes, aba_consolidados = st.tabs(['Confirmados', 'Notificações', 'Consolidados'])
 
 with aba_confirmados:
     coluna_tabela_confirmados, coluna_mapa_grafico_confirmados = st.columns([2,2])
