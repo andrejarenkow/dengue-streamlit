@@ -90,8 +90,10 @@ with coluna_tabela_notificacoes:
 
 with aba_consolidados:
     pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
-    pivot_table_consolidados
-    st.write('aaaa')
+    heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica)
+    heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
+    st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
+
 
 
 #Cálculo do total de confirmados
