@@ -88,13 +88,13 @@ with coluna_tabela_notificacoes:
 
 # Aba de consolidados
 
-#with aba_consolidados:
-#    pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
-#    heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True,
-#                                         color_continuous_scale='Greys', width=1200,
-#                                         height=altura_dinamica, aspect = 'equal')
-#    heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
-#    st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
+with aba_consolidados:
+    pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
+    heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True,
+                                         color_continuous_scale='Greys', width=1200,
+                                         height=altura_dinamica, aspect = 'equal')
+    heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
+    st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
 
 
 
