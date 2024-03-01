@@ -94,8 +94,9 @@ with aba_consolidados:
                                          color_continuous_scale='Greys', width=1200,
                                          height=altura_dinamica, aspect = 'equal')
     heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
-    st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
-
+    st.plotly_chart(heatmap_fig_consolidados, use_container_width=True)   
+    st.plotly_chart(heatmap_fig_consolidados, use_container_width=False, theme=None)
+    heatmap_fig_consolidados
 
 
 #Cálculo do total de confirmados
