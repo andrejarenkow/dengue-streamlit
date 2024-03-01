@@ -130,7 +130,7 @@ fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='
 # Aba de consolidados
 
 with aba_consolidados:
-    dados_dengue_2020_atual
+    dados_dengue_ano
 
 # Mapa
 # Criação da tabela suporte
