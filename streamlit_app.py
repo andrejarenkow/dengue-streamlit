@@ -90,7 +90,7 @@ with coluna_tabela_notificacoes:
 
 with aba_consolidados:
     pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
-    heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica)
+    heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True, color_continuous_scale='Blues', width=1200, height=altura_dinamica)
     heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
     st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
 
@@ -118,9 +118,7 @@ coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = 
 coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
 coluna_obitos.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 coluna_notif.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
-    
-    
-    
+       
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
 # Filtrar o dataframe
