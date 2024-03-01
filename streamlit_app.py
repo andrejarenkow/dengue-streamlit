@@ -75,14 +75,14 @@ with aba_notificacoes:
 altura_dinamica = 800/24*len(pivot_table)
 with coluna_tabela_confirmados:
         st.write(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
-        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica)
+        heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica, aspect = 'equal')
         heatmap_fig_conf.update_layout(xaxis=dict(side='top', title='Semana Epidemiológica')) # Posicionando o rótulo do eixo X na parte superior
      # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_conf, use_container_width=False)
 
 with coluna_tabela_notificacoes:
         st.write(f'Notificações por semana epidemiológica por município, RS, {ano}')
-        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica)
+        heatmap_fig_notific = px.imshow(pivot_table_notific, text_auto=True, color_continuous_scale='Blues', width=800, height=altura_dinamica, aspect = 'equal')
         heatmap_fig_notific.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_notific, use_container_width=False)    
 
@@ -91,7 +91,7 @@ with coluna_tabela_notificacoes:
 with aba_consolidados:
     pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
     heatmap_fig_consolidados = px.imshow(pivot_table_consolidados, text_auto=True,
-                                         color_continuous_scale='Blues', width=1200,
+                                         color_continuous_scale='Greys', width=1200,
                                          height=altura_dinamica, aspect = 'equal')
     heatmap_fig_consolidados.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
     st.plotly_chart(heatmap_fig_consolidados, use_container_width=False)    
