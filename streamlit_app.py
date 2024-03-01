@@ -91,6 +91,7 @@ with coluna_tabela_notificacoes:
 with aba_consolidados:
     pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values=['Notificações', 'Confirmados','Autóctones', 'Investigação','Óbitos'], index=index_selecionado, aggfunc='sum', fill_value=0)
     pivot_table_consolidados
+    st.write('aaaa')
 
 
 #Cálculo do total de confirmados
