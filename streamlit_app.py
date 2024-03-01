@@ -86,6 +86,12 @@ with coluna_tabela_notificacoes:
         heatmap_fig_notific.update_layout(xaxis=dict(side='top')) # Posicionando o rótulo do eixo X na parte superior
         st.plotly_chart(heatmap_fig_notific, use_container_width=False)    
 
+# Aba de consolidados
+
+with aba_consolidados:
+    pivot_table_consolidados = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+    pivot_table_consolidados
+
 
 #Cálculo do total de confirmados
 total_confirmados = dados_dengue_ano['Confirmados'].sum()
@@ -127,10 +133,7 @@ fig_confirmados = px.line(dados_dengue_consolidados, x='Semana Epidemiológica',
 dados_dengue_notific = dados_dengue_2020_atual.groupby(['Ano', 'Semana Epidemiológica']).agg({'Notificações': 'sum'}).reset_index()
 fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='Notificações', color='Ano', markers=True, title='Notificações por semana epidemiológica, RS, 2020-2024')
 
-# Aba de consolidados
 
-with aba_consolidados:
-    dados_dengue_ano
 
 # Mapa
 # Criação da tabela suporte
