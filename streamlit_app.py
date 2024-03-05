@@ -75,7 +75,12 @@ with aba_notificacoes:
     coluna_tabela_notificacoes, coluna_mapa_grafico_notificacoes = st.columns([2,2])
 
 # Print the pivot table
-altura_dinamica = 800/24*len(pivot_table)
+if len(pivot_table)<10:
+    altura_dinamica = 800
+
+else:
+    altura_dinamica = 800/24*len(pivot_table)
+    
 with coluna_tabela_confirmados:
         st.write(f'Casos confirmados por semana epidemiológica por município, RS, {ano}')
         heatmap_fig_conf = px.imshow(pivot_table, text_auto=True, color_continuous_scale='OrRd', width=800, height=altura_dinamica, aspect = 'equal')
