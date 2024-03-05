@@ -223,6 +223,6 @@ with coluna_mapa_grafico_notificacoes:
 with aba_estimativa:
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
-    dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='left')
+    dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
     dados_estimativa_crs
     
