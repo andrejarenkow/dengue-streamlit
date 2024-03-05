@@ -76,7 +76,7 @@ with aba_notificacoes:
 
 # Print the pivot table
 if len(pivot_table)<10:
-    altura_dinamica = 600
+    altura_dinamica = 500
 
 else:
     altura_dinamica = 800/24*len(pivot_table)
