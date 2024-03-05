@@ -60,7 +60,10 @@ pivot_table = pd.pivot_table(dados_dengue_ano, values='Confirmados', index=index
 pivot_table = pd.concat([pop_municipios_index, pivot_table], axis=1).fillna(0)
 
 pivot_table_notific = pd.pivot_table(dados_dengue_ano, values='Notificações', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table_notific = pd.concat([pop_municipios_index, pivot_table_notific], axis=1).fillna(0)
+
 pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=index_selecionado, columns='Semana Epidemiol\u00f3gica', aggfunc='sum', fill_value=0)
+pivot_table_obitos = pd.concat([pop_municipios_index, pivot_table_obitos], axis=1).fillna(0)
 
 #Criar as abas
 aba_confirmados, aba_notificacoes, aba_consolidados = st.tabs(['Confirmados', 'Notificações', 'Consolidados'])
