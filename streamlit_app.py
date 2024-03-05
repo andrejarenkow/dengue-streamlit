@@ -221,6 +221,8 @@ with coluna_mapa_grafico_notificacoes:
     st.plotly_chart(fig_notificacoes, use_container_width=True)
 
 with aba_estimativa:
+    # Filtrando o DataFrame de casos reais apenas para 2024
+    dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==2024]]
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
     dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
@@ -228,12 +230,18 @@ with aba_estimativa:
     dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']-202400
     
     # Criando o gráfico com Plotly Express
-    fig_est = px.line(dados_estimativa_crs_pivot, x='Semana Epidemiológica', y='casos_est', title='Estimativa de casos de dengue')
+    fig = px.line(title='Estimativa de casos de dengue e Confirmados em 2024')
+    
+    # Adicionando a linha de estimativa de casos (pontilhada)
+    fig.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines', line=dict(dash='dash'), name='Estimativa de casos')
     
     # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Mínimo estimado')
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Máximo estimado')
+    fig.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Mínimo estimado')
+    fig.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Máximo estimado')
     
+    # Adicionando a linha de casos confirmados (contínua)
+    fig.add_scatter(x=dados_dengue_consolidados_2024['Semana Epidemiológica'], y=dados_dengue_consolidados_2024['Confirmados'], mode='lines', name='Casos Confirmados')
+       
     # Exibindo o gráfico
     st.plotly_chart(fig_est, use_container_width=True)
     
