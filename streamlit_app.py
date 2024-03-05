@@ -66,7 +66,7 @@ pivot_table_obitos = pd.pivot_table(dados_dengue_ano, values='Óbitos', index=in
 pivot_table_obitos = pd.concat([pop_municipios_index, pivot_table_obitos], axis=1).fillna(0)
 
 #Criar as abas
-aba_confirmados, aba_notificacoes, aba_consolidados = st.tabs(['Confirmados', 'Notificações', 'Consolidados'])
+aba_confirmados, aba_notificacoes, aba_consolidados, aba_estimativa = st.tabs(['Confirmados', 'Notificações', 'Consolidados', 'Estimativas - Infodengue'])
 
 with aba_confirmados:
     coluna_tabela_confirmados, coluna_mapa_grafico_confirmados = st.columns([2,2])
@@ -219,3 +219,8 @@ with coluna_mapa_grafico_confirmados:
 with coluna_mapa_grafico_notificacoes:
     st.plotly_chart(map_fig_notificacoes, use_container_width=True)
     st.plotly_chart(fig_notificacoes, use_container_width=True)
+
+with aba_estimativa:
+    dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
+    dados_estimativa
+    
