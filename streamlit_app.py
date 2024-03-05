@@ -224,5 +224,16 @@ with aba_estimativa:
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
     dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
-    dados_estimativa_crs
+    dados_estimativa_crs_pivot = pd.pivot_table(dados_estimativa_crs, index='SE', values=['casos_est','casos_est_min', 'casos_est_max'], aggfunc='sum').reset_index()
+    dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']-202400
+    
+    # Criando o gráfico com Plotly Express
+    fig_est = px.line(dados_estimativa_crs_pivot, x='Semana Epidemiológica', y='casos_est', title='Estimativa de casos de dengue')
+    
+    # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
+    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Mínimo estimado')
+    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Máximo estimado')
+    
+    # Exibindo o gráfico
+    st.plotly_chart(fig_est)
     
