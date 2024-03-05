@@ -235,5 +235,5 @@ with aba_estimativa:
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.2)', name='Máximo estimado')
     
     # Exibindo o gráfico
-    st.plotly_chart(fig_est)
+    st.plotly_chart(fig_est, use_container_width=True)
     
