@@ -246,7 +246,6 @@ with aba_estimativa:
     st.plotly_chart(fig_est, use_container_width=True)
     dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
     dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6')
-    dados_estimativa_crs_mapa_ibge
     map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
                           locations=dados_estimativa_crs_mapa_ibge.index, color='nivel',
                           color_discrete_sequence =['red','Yellow','Green','purple'],
@@ -265,5 +264,5 @@ with aba_estimativa:
     map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
                              colorbar_yanchor='bottom',
                              colorbar_y=-0.13)
-    st.plotly_chart(map_fig_nivel, use_container_width=True)
+    map_fig_nivel
     
