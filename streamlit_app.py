@@ -249,7 +249,7 @@ with aba_estimativa:
     })
     dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
     dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6')
-    map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
+    map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge.sort_values('nivel'), geojson=dados_estimativa_crs_mapa_ibge.geometry,
                           locations=dados_estimativa_crs_mapa_ibge.index, color='nivel_descricao',
                           color_discrete_map = {'Baixa Transmissão':'green', 'Atenção':'yellow', 'Transmissão Sustentada':'orange', 'Alta Incidência':'red'},
                           center ={'lat':latitude_media, 'lon':longitude_media},
