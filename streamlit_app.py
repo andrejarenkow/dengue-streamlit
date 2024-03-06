@@ -244,5 +244,5 @@ with aba_estimativa:
        
     # Exibindo o gráfico
     st.plotly_chart(fig_est, use_container_width=True)
-    dados_estimativa_crs
-    
+    dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'])
+    dados_estimativa_crs_mapa
