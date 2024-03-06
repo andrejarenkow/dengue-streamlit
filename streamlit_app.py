@@ -221,6 +221,7 @@ with coluna_mapa_grafico_notificacoes:
     st.plotly_chart(fig_notificacoes, use_container_width=True)
 
 with aba_estimativa:
+    coluna_grafico_estimativa, coluna_mapa_estimativa = st.columns(2)
     # Filtrando o DataFrame de casos reais apenas para 2024
     dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==2024]
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
@@ -243,10 +244,11 @@ with aba_estimativa:
     fig_est.add_scatter(x=dados_dengue_consolidados_2024['Semana Epidemiológica'], y=dados_dengue_consolidados_2024['Confirmados'], mode='lines+markers', name='Casos Confirmados', )
        
     # Exibindo o gráfico
-    st.plotly_chart(fig_est, use_container_width=True)
-    dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
-        1:'Baixa Transmissão', 2:'Atenção', 3:'Transmissão Sustentada', 4:'Alta Incidência'
-    })
+    with coluna_grafico_estimativa:
+        st.plotly_chart(fig_est, use_container_width=True)
+        dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
+            1:'Baixa Transmissão', 2:'Atenção', 3:'Transmissão Sustentada', 4:'Alta Incidência'
+        })
     dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
     dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6').sort_values('nivel')
     map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
@@ -267,5 +269,7 @@ with aba_estimativa:
     map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
                              colorbar_yanchor='bottom',
                              colorbar_y=-0.13)
-    st.plotly_chart(map_fig_nivel)
+
+    with coluna_mapa_estimativa:
+        st.plotly_chart(map_fig_nivel, use_container_width=True)
     
