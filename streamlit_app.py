@@ -261,7 +261,7 @@ with aba_estimativa:
                           width=800,
                           height=600,
                           #template='plotly_dark',
-                          title = 'Incidência de casos confirmados de dengue, RS, 2024')
+                          title = 'Nível de alerta InfoDengue por município, RS, 2024')
 
     map_fig_nivel.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
                                       )
