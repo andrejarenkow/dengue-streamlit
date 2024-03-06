@@ -247,3 +247,23 @@ with aba_estimativa:
     dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
     dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6')
     dados_estimativa_crs_mapa_ibge
+    map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
+                          locations=dados_estimativa_crs_mapa_ibge.index, color='nivel',
+                          color_continuous_scale='OrRd',
+                          center ={'lat':latitude_media, 'lon':longitude_media},
+                          zoom=zoom_ini,
+                          mapbox_style="carto-positron",
+                          hover_name='NM_MUN',
+                          width=800,
+                          height=700,
+                          #template='plotly_dark',
+                          title = 'Incidência de casos confirmados de dengue, RS, 2024')
+
+    map_fig_nivel.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
+                                      )
+    map_fig_nivel.update_traces(marker_line_width=0.2)
+    map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
+                             colorbar_yanchor='bottom',
+                             colorbar_y=-0.13)
+    st.plotly_chart(map_fig_nivel, use_container_width=True)
+    
