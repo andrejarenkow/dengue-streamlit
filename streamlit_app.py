@@ -238,7 +238,7 @@ with aba_estimativa:
     
     # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.1)', name='Intervalo estimado')
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.1)', legend=False)
+    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.1)', showlegend=False)
     
     # Adicionando a linha de casos confirmados (contínua)
     fig_est.add_scatter(x=dados_dengue_consolidados_2024['Semana Epidemiológica'], y=dados_dengue_consolidados_2024['Confirmados'], mode='lines+markers', name='Casos Confirmados', )
