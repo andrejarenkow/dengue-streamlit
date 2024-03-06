@@ -259,7 +259,7 @@ with aba_estimativa:
                           mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
-                          height=700,
+                          height=600,
                           #template='plotly_dark',
                           title = 'Incidência de casos confirmados de dengue, RS, 2024')
 
