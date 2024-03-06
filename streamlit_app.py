@@ -267,5 +267,5 @@ with aba_estimativa:
     map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
                              colorbar_yanchor='bottom',
                              colorbar_y=-0.13)
-    map_fig_nivel
+    st.plotly_chart(map_fig_nivel)
     
