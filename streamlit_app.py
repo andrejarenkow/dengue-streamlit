@@ -245,4 +245,5 @@ with aba_estimativa:
     # Exibindo o gráfico
     st.plotly_chart(fig_est, use_container_width=True)
     dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
-    dados_estimativa_crs_mapa
+    dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6')
+    dados_estimativa_crs_mapa_ibge
