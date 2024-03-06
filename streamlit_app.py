@@ -249,7 +249,7 @@ with aba_estimativa:
     dados_estimativa_crs_mapa_ibge['nivel'] = dados_estimativa_crs_mapa_ibge['nivel'].astype(str)
     map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
                           locations=dados_estimativa_crs_mapa_ibge.index, color='nivel',
-                          color_discrete_map = {1:'green', 2:'yellow', 3:'orange',4:'red'},
+                          color_discrete_map = {'1':'green', '2':'yellow', '3':'orange', '4':'red'},
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           zoom=zoom_ini,
                           mapbox_style="carto-positron",
