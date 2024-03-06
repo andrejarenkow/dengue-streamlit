@@ -244,4 +244,5 @@ with aba_estimativa:
        
     # Exibindo o gráfico
     st.plotly_chart(fig_est, use_container_width=True)
+    dados_estimativa_crs
     
