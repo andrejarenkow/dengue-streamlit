@@ -232,13 +232,15 @@ with aba_estimativa:
     
     # Criando o gráfico com Plotly Express
     fig_est = px.line(title='Estimativa de casos de dengue e Confirmados em 2024')
-       
+
+    # Adicionando a linha de estimativa de casos (pontilhada)
+    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash', color='red'), name='Estimativa de casos', )    
+    
     # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', name='Intervalo estimado')
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', showlegend=False)
 
-    # Adicionando a linha de estimativa de casos (pontilhada)
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash', color='red'), name='Estimativa de casos', )
+
     
     # Adicionando a linha de casos confirmados (contínua)
     fig_est.add_scatter(x=dados_dengue_consolidados_2024['Semana Epidemiológica'], y=dados_dengue_consolidados_2024['Confirmados'], mode='lines+markers', name='Casos Confirmados', line=dict(color='black'))
