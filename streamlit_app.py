@@ -234,7 +234,7 @@ with aba_estimativa:
     fig_est = px.line(title='Estimativa de casos de dengue e Confirmados em 2024')
     
     # Adicionando a linha de estimativa de casos (pontilhada)
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash'), name='Estimativa de casos', )
+    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash', color='red'), name='Estimativa de casos', )
     
     # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(0,100,80,0.1)', name='Intervalo estimado')
