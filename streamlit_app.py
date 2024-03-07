@@ -253,7 +253,7 @@ with aba_estimativa:
     dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6').sort_values('nivel')
     map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
                           locations=dados_estimativa_crs_mapa_ibge.index, color='nivel_descricao',
-                          color_discrete_map = {'Baixa Transmissão':'mediumseagreen', 'Atenção':'gold', 'Transmissão Sustentada':'darkorange', 'Alta Incidência':'firebrick'},
+                          color_discrete_map = {'Baixa Transmissão':'#56B870', 'Atenção':'gold', 'Transmissão Sustentada':'darkorange', 'Alta Incidência':'firebrick'},
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           zoom=zoom_ini,
                           mapbox_style="carto-positron",
