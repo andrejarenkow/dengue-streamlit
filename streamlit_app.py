@@ -247,6 +247,7 @@ with aba_estimativa:
        
     # Exibindo o gráfico
     with coluna_grafico_estimativa:
+        st.write('O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados a partir da web social e de dados climáticos e epidemiológicos.')
         st.plotly_chart(fig_est, use_container_width=True)
         dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
             1:'Baixa Transmissão', 2:'Atenção', 3:'Transmissão Sustentada', 4:'Alta Incidência'
@@ -275,6 +276,6 @@ with aba_estimativa:
     with coluna_mapa_estimativa:
         st.plotly_chart(map_fig_nivel, use_container_width=True)
     
-    with st.expander('aaa'):
+    with st.expander('Sobre o InfoDengue'):
         'aaaaaaa'
 
