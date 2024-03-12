@@ -247,7 +247,10 @@ with aba_estimativa:
        
     # Exibindo o gráfico
     with coluna_grafico_estimativa:
-        st.write('O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados a partir da web social e de dados climáticos e epidemiológicos.')
+        st.write("""
+            'O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados a partir da web social e de dados climáticos e epidemiológicos.
+            O sistema InfoDengue é um pipeline de coleta, harmonização e análise de dados semi-automatizado, que gera indicadores de situação epidemiológica da dengue e outras arboviroses a nível municipal.
+            """)
         with st.popover('Sobre o InfoDengue'):
             st.image('https://info.dengue.mat.br/static/img/table_color_level_pt.png')
         st.plotly_chart(fig_est, use_container_width=True)
