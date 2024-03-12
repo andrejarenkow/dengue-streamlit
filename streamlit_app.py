@@ -275,6 +275,6 @@ with aba_estimativa:
     with coluna_mapa_estimativa:
         st.plotly_chart(map_fig_nivel, use_container_width=True)
     
-    with st.popover('aaa'):
+    with st.expander('aaa'):
         'aaaaaaa'
 
