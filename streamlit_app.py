@@ -248,10 +248,31 @@ with aba_estimativa:
     # Exibindo o gráfico
     with coluna_grafico_estimativa:
         st.write("""
-            'O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados a partir da web social e de dados climáticos e epidemiológicos.
-            O sistema InfoDengue é um pipeline de coleta, harmonização e análise de dados semi-automatizado, que gera indicadores de situação epidemiológica da dengue e outras arboviroses a nível municipal.
+            O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados
+            a partir da web social e de dados climáticos e epidemiológicos, que gera indicadores de situação epidemiológica da dengue e outras arboviroses a nível municipal.
             """)
         with st.popover('Sobre o InfoDengue'):
+            st.write("""
+                De onde vem os dados?
+• Casos de dengue, chikungunya e zika: Essas são doenças de notificação obrigatória, isso é, o profissional de saúde que diagnostica um caso suspeito precisa preencher uma ficha de notificação que alimenta um banco de dados municipal que depois é consolidado a nível estadual e finalmente, a nível federal pelo Ministério da Saúde. Apenas uma fração desses casos são confirmados laboratorialmente, a maioria recebe classificação final com base em critérios clínico-epidemiológicos. A partir dos casos notificados, são calculados os indicadores de incidência que alimentam o InfoDengue.
+
+• Dados meteorológicos: A transmissão de arboviroses é muito influenciada pelo clima. O mosquito transmissor, Aedes aegypti, requer temperatura alta e umidade para se reproduzir e viver. O vírus ao infectar o mosquito, também irá se reproduzir melhor em temperaturas mais altas. Dados de temperatura e umidade são obtidos das estações meteorológicas de aeroportos assim como de imagens de satélite.
+
+• Dados demográficos: Indicadores epidemiológicos precisam ser calculados em relação ao tamanho da população. Dados demográficos dos municípios brasileiros são atualizados a cada ano no Infodengue, utilizando as estimativas do IBGE.
+
+
+O que o sistema faz?
+• Correção do atraso de notificação (nowcasting): Os dados de notificação de doenças tem sempre um atraso. Isso ocorre por vários motivos e inclui o tempo entre a pessoa adoecer e buscar atendimento médico, o tempo que leva para o profissional de saúde notificar e o tempo que demora para agregar as informações nos bancos de dados. Esse atraso dificulta a tomada de decisão pois tem-se sempre que olhar para um dado desatualizado. Para contornar esse problema, foi desenvolvido um método estatístico baseado em inferência Bayesiana que combina a estimação do atraso com a estimação do padrão temporal histórico da incidência para calcular o número esperado de casos a cada semana. Esse processo se chama nowcasting ou estimação do presente e está descrita em: Bastos, Economou et al (2019) ”A modelling approach for correcting reporting delays in disease surveillance data”. A Figura abaixo (retirada de Bastos et al 2019) mostra em preto, a incidência verdadeira, em vermelho, aquela observada com atraso e, em cinza, o nowcasting. Para mais detalhes técnicos, ver a referida publicação.
+
+gibberish
+
+
+• Detecção de transmissão sustentada: A estimação do número reprodutivo é importante em vários aspectos. Sequência de semanas com transmissão crítica (Rt > 1) indica transmissão sustentada. Isso é, indica que estamos na fase de espalhamento da doença, e que ações adequadas para controle precisam ser implementadas. Já períodos sub-críticos (Rt < 1) indicam que não há transmissão sustentada, isso pode ocorrer por causa do clima, por causa do controle ou pela redução do contingente de suscetíveis. Para estimar R0 e Rt a partir dos dados de incidência, desenvolvemos metodologia própria, descrita em Codeço et al. 2018 "Estimating the effective reproduction number of dengue considering temperature-dependent generation intervals".
+
+• Análise de receptividade: A transmissão das arboviroses requer condições climáticas adequadas, que podem variar de lugar para lugar. No Rio de Janeiro, por exemplo, temperatura maior que 22 graus é condição necessária para transmissão sustentada. Em Fortaleza, umidade máxima acima de 85% é a condição necessária. Nós ajustamos modelos de árvore de decisão, para avaliar que combinação de variáveis climáticas e ambientais são indicadoras de condições de transmissão. Essa informação serve de alerta precoce de chegada da temporada da arbovirose.
+
+• Detecção de situação atípica: Para estimar limiares epidêmicos, nós utilizamos o Moving Epidemics Method (MEM) Vega et al. 2012, que permite estimar diversas grandezas de interesse com base em dados históricos locais como limiar pré-epidêmico, níveis de atividade típicas, valores esperados para cada semana, etc. Como este limiar é obtido a partir do histórico de dados que alimenta o sistema, ele tem valores particulares para cada localidade. Além destes limiares globais para a série temporal, a metodologia utilizada permite ainda obter estimativas para o número esperado de casos por semana, juntamente de intervalos de confiança que permitem definir zonas de atividade semanal. Estas regiões são definidas de maneira similar aos níveis de atividade, porém são calculados com base na distribuição típica de casos para cada semana. Tal construção identifica visualmente os padrões sazonais, uma vez que apresentam a evolução temporal típica com base na mediana dos casos esperados para cada semana e intervalos de confiança inferior e superior (utilizamos 10% e 90%, respectivamente), definindo corredores de atividade típica, como um diagrama de controle.
+                """)            
             st.image('https://info.dengue.mat.br/static/img/table_color_level_pt.png')
         st.plotly_chart(fig_est, use_container_width=True)
         dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
