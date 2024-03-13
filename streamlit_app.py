@@ -247,12 +247,12 @@ with aba_estimativa:
        
     # Exibindo o gráfico
     with coluna_grafico_estimativa:
-        st.write("""
-            O InfoDengue é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados
+        st.markdown("""
+            O [InfoDengue](https://info.dengue.mat.br/informacoes/) é um sistema de alerta para arboviroses baseado em dados híbridos gerados por meio da análise integrada de dados minerados
             a partir da web social e de dados climáticos e epidemiológicos, que gera indicadores de situação epidemiológica da dengue e outras arboviroses a nível municipal.
             """)
         with st.popover('Sobre o InfoDengue'):
-            st.markdown("""
+            st.write("""
                 De onde vem os dados?
                 
 O sistema InfoDengue é uma ferramenta semi-automatizada que coleta, harmoniza e analisa dados para fornecer indicadores da situação epidemiológica da dengue e outras arboviroses em nível municipal. Os dados utilizados incluem casos notificados de dengue, chikungunya e zika, informações meteorológicas e dados demográficos dos municípios brasileiros.
