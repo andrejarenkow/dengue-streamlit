@@ -252,7 +252,7 @@ with aba_estimativa:
             a partir da web social e de dados climáticos e epidemiológicos, que gera indicadores de situação epidemiológica da dengue e outras arboviroses a nível municipal.
             """)
         with st.popover('Sobre o InfoDengue'):
-            st.write("""
+            st.markdown("""
                 De onde vem os dados?
                 
 O sistema InfoDengue é uma ferramenta semi-automatizada que coleta, harmoniza e analisa dados para fornecer indicadores da situação epidemiológica da dengue e outras arboviroses em nível municipal. Os dados utilizados incluem casos notificados de dengue, chikungunya e zika, informações meteorológicas e dados demográficos dos municípios brasileiros.
@@ -260,7 +260,7 @@ O sistema InfoDengue é uma ferramenta semi-automatizada que coleta, harmoniza e
 Uma das principais funções do sistema é corrigir o atraso de notificação das doenças, através de um método estatístico baseado em inferência Bayesiana, permitindo a estimativa do número esperado de casos a cada semana, conhecido como "nowcasting". Além disso, o sistema é capaz de detectar transmissão sustentada das arboviroses, estimar o número reprodutivo (R0 e Rt) e analisar a receptividade de diferentes localidades às condições climáticas favoráveis à transmissão.
 
 O InfoDengue também realiza a detecção de situações atípicas, estimando limiares epidêmicos e proporcionando alertas precoces sobre a chegada da temporada de arboviroses. Utilizando metodologias próprias e dados históricos locais, o sistema é capaz de identificar padrões sazonais e definir zonas de atividade semanal, contribuindo para a tomada de decisões em saúde pública e o controle eficaz dessas doenças.
- """)            
+ """)      
             st.image('https://info.dengue.mat.br/static/img/table_color_level_pt.png')
         st.plotly_chart(fig_est, use_container_width=True)
         dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
