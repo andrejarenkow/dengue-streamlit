@@ -172,6 +172,7 @@ tabela_mapa = pd.pivot_table(dados_dengue_ano[filtro_quatro_ultimas_semanas], va
                index=['Nome Munic\u00edpio', 'Cód IBGE'],
                aggfunc='sum', fill_value=0)
 tabela_mapa = pd.concat([tabela_mapa, indice_mapa], axis=1).fillna(0).reset_index()
+tabela_mapa
 tabela_mapa.columns = ['Nome Munic\u00edpio', 'Cód IBGE', 'Confirmados', 'Notificações']
 
 tabela_mapa_pop = tabela_mapa.merge(pop_municipio_crs, left_on='Cód IBGE', right_on='IBGE6', how='right')
