@@ -148,8 +148,11 @@ fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='
 # Mapa
 # Criação da tabela suporte
 indice_mapa = pop_municipio_crs[['Município', 'IBGE6']].set_index(['Município', 'IBGE6'])
-dados_dengue_ano
-tabela_mapa = pd.pivot_table(dados_dengue_ano, values=['Confirmados', 'Notificações'],
+
+# Filtro somente das últimas 4 semanas
+quatro_ultimas_semanas = [10,11,12,13]
+filtro_quatro_ultimas_semanas = dados_dengue_ano['Semana Epidemiológica'].isin(quatro_ultimas_semanas)
+tabela_mapa = pd.pivot_table(dados_dengue_ano[filtro_quatro_ultimas_semanas], values=['Confirmados', 'Notificações'],
                index=['Nome Munic\u00edpio', 'Cód IBGE'],
                aggfunc='sum', fill_value=0)
 tabela_mapa = pd.concat([tabela_mapa, indice_mapa], axis=1).fillna(0).reset_index()
