@@ -204,7 +204,7 @@ map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tab
                           width=800,
                           height=700,
                           #template='plotly_dark',
-                          title = 'Incidência de casos confirmados de dengue, RS, 2024')
+                          title = 'Incidência de casos confirmados de dengue nas últimas 4 semanas epidemiológicas, RS, 2024')
 
 map_fig_confirmados.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
                                   )
@@ -224,7 +224,7 @@ map_fig_notificacoes = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=ta
                           width=800,
                           height=700,
                           #template='plotly_dark',
-                          title = 'Incidência de Notificações de dengue, RS, 2024')
+                          title = 'Incidência de Notificações de dengue nas últimas 4 semanas epidemiológicas, RS, 2024')
 
 map_fig_notificacoes.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
                                   )
