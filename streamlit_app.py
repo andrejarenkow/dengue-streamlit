@@ -199,6 +199,7 @@ map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tab
                           color_continuous_scale='OrRd',
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           zoom=zoom_ini,
+                          hover_data=['CRS'],
                           mapbox_style="carto-positron",
                           hover_name='NM_MUN',
                           width=800,
