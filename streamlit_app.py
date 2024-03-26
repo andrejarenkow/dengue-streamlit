@@ -202,7 +202,8 @@ map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci,
                                             center={'lat': latitude_media, 'lon': longitude_media},
                                             zoom=zoom_ini,
                                             mapbox_style="carto-positron",
-                                            hover_data={'NM_MUN': True, 'incidencia_confirmados': True},  # Define as informações do hover
+                                            hover_data=['CRS'],
+                                            hover_name='NM_MUN',# Define as informações do hover
                                             width=800,
                                             height=700,
                                             title='Incidência de casos confirmados de dengue nas últimas 4 semanas epidemiológicas, RS, 2024')
@@ -221,6 +222,7 @@ map_fig_notificacoes = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=ta
                           center ={'lat':latitude_media, 'lon':longitude_media},
                           zoom=zoom_ini,
                           mapbox_style="carto-positron",
+                          hover_data=['CRS'],
                           hover_name='NM_MUN',
                           width=800,
                           height=700,
