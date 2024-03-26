@@ -150,8 +150,24 @@ fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='
 indice_mapa = pop_municipio_crs[['Município', 'IBGE6']].set_index(['Município', 'IBGE6'])
 
 # Filtro somente das últimas 4 semanas
-quatro_ultimas_semanas = [10,11,12,13]
+from datetime import datetime, timedelta
+
+def ultimas_quatro_semanas():
+    data_atual = datetime.now()
+    semanas = []
+
+    # Calcula as datas das últimas quatro semanas
+    for i in range(4):
+        semana_inicio = data_atual - timedelta(days=data_atual.weekday() + i * 7)
+        semana_fim = semana_inicio + timedelta(days=6)
+        semanas.append((semana_inicio.strftime('%d/%m/%Y'), semana_fim.strftime('%d/%m/%Y')))
+
+    return semanas
+
+quatro_ultimas_semanas = ultimas_quatro_semanas()
 filtro_quatro_ultimas_semanas = dados_dengue_ano['Semana Epidemiológica'].isin(quatro_ultimas_semanas)
+
+# Criando DF para usar no mapa
 tabela_mapa = pd.pivot_table(dados_dengue_ano[filtro_quatro_ultimas_semanas], values=['Confirmados', 'Notificações'],
                index=['Nome Munic\u00edpio', 'Cód IBGE'],
                aggfunc='sum', fill_value=0)
@@ -174,7 +190,7 @@ tabela_geo_mapa_pop_inci['incidencia_notificacoes'] = tabela_geo_mapa_pop_inci['
 
 latitude_media = (tabela_geo_mapa_pop_inci['geometry'].centroid.y.max() + tabela_geo_mapa_pop_inci['geometry'].centroid.y.min())/2
 longitude_media = (tabela_geo_mapa_pop_inci['geometry'].centroid.x.max() + tabela_geo_mapa_pop_inci['geometry'].centroid.x.min())/2
-
+tabela_geo_mapa_pop_inci
 #Mapa da incidência por município
 map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci, geojson=tabela_geo_mapa_pop_inci.geometry,
                           locations=tabela_geo_mapa_pop_inci.index, color='incidencia_confirmados',
