@@ -156,11 +156,12 @@ def ultimas_quatro_semanas():
     data_atual = datetime.now()
     semanas = []
 
-    # Calcula as datas das últimas quatro semanas
+    # Calcula os números das últimas quatro semanas
     for i in range(4):
         semana_inicio = data_atual - timedelta(days=data_atual.weekday() + i * 7)
         semana_fim = semana_inicio + timedelta(days=6)
-        semanas.append((semana_inicio.strftime('%d/%m/%Y'), semana_fim.strftime('%d/%m/%Y')))
+        semana_numero = data_atual.isocalendar()[1] - i  # Número da semana atual menos i
+        semanas.append(semana_numero)
 
     return semanas
 
