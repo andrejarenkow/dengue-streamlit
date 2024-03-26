@@ -148,7 +148,7 @@ fig_notificacoes = px.line(dados_dengue_notific, x='Semana Epidemiológica', y='
 # Mapa
 # Criação da tabela suporte
 indice_mapa = pop_municipio_crs[['Município', 'IBGE6']].set_index(['Município', 'IBGE6'])
-
+dados_dengue_ano
 tabela_mapa = pd.pivot_table(dados_dengue_ano, values=['Confirmados', 'Notificações'],
                index=['Nome Munic\u00edpio', 'Cód IBGE'],
                aggfunc='sum', fill_value=0)
