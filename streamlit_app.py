@@ -167,7 +167,7 @@ def ultimas_quatro_semanas():
 
 quatro_ultimas_semanas = ultimas_quatro_semanas()
 filtro_quatro_ultimas_semanas = dados_dengue_ano['Semana Epidemiológica'].isin(quatro_ultimas_semanas)
-st.write(quatro_ultimas_semanas)
+#st.write(quatro_ultimas_semanas)
 
 # Criando DF para usar no mapa
 tabela_mapa = pd.pivot_table(dados_dengue_ano[filtro_quatro_ultimas_semanas], values=['Confirmados', 'Notificações'],
