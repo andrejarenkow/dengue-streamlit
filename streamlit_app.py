@@ -290,29 +290,28 @@ O InfoDengue também realiza a detecção de situações atípicas, estimando li
         dados_estimativa_crs['nivel_descricao'] = dados_estimativa_crs['nivel'].fillna(1).replace({
             1:'Baixa Transmissão', 2:'Atenção', 3:'Transmissão Sustentada', 4:'Alta Incidência'
         })
-    dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
-    dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6').sort_values('nivel')
-    map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
-                          locations=dados_estimativa_crs_mapa_ibge.index, color='nivel_descricao',
-                          color_discrete_map = {'Baixa Transmissão':'#6DBE45', 'Atenção':'#FFE34C', 'Transmissão Sustentada':'darkorange', 'Alta Incidência':'#D83027'},
-                          center ={'lat':latitude_media, 'lon':longitude_media},
-                          zoom=zoom_ini,
-                          mapbox_style="carto-positron",
-                          hover_name='NM_MUN',
-                          width=800,
-                          height=600,
-                          #template='plotly_dark',
-                          title = 'Nível de alerta InfoDengue por município, RS, 2024')
 
-    map_fig_nivel.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
-                                      )
-    map_fig_nivel.update_traces(marker_line_width=0.2)
-    map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
-                             colorbar_yanchor='bottom',
-                             colorbar_y=-0.13)
 
     with coluna_mapa_estimativa:
+        dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
+        dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6').sort_values('nivel')
+        map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
+                              locations=dados_estimativa_crs_mapa_ibge.index, color='nivel_descricao',
+                              color_discrete_map = {'Baixa Transmissão':'#6DBE45', 'Atenção':'#FFE34C', 'Transmissão Sustentada':'darkorange', 'Alta Incidência':'#D83027'},
+                              center ={'lat':latitude_media, 'lon':longitude_media},
+                              zoom=zoom_ini,
+                              mapbox_style="carto-positron",
+                              hover_name='NM_MUN',
+                              width=800,
+                              height=600,
+                              #template='plotly_dark',
+                              title = 'Nível de alerta InfoDengue por município, RS, 2024')
+    
+        map_fig_nivel.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
+                                          )
+        map_fig_nivel.update_traces(marker_line_width=0.2)
+        map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
+                                 colorbar_yanchor='bottom',
+                                 colorbar_y=-0.13)
         st.plotly_chart(map_fig_nivel, use_container_width=True)
     
-
-
