@@ -192,7 +192,7 @@ tabela_geo_mapa_pop_inci['incidencia_notificacoes'] = tabela_geo_mapa_pop_inci['
 
 latitude_media = (tabela_geo_mapa_pop_inci['geometry'].centroid.y.max() + tabela_geo_mapa_pop_inci['geometry'].centroid.y.min())/2
 longitude_media = (tabela_geo_mapa_pop_inci['geometry'].centroid.x.max() + tabela_geo_mapa_pop_inci['geometry'].centroid.x.min())/2
-tabela_geo_mapa_pop_inci
+#tabela_geo_mapa_pop_inci
 #Mapa da incidência por município
 map_fig_confirmados = px.choropleth_mapbox(tabela_geo_mapa_pop_inci,
                                             geojson=tabela_geo_mapa_pop_inci.geometry,
