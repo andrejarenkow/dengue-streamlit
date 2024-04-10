@@ -39,8 +39,7 @@ ano = 2024
 with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
     lista_crs.insert(0, 'Todas')
-    st.write('Selecione a CRS')
-    crs_selecionada = ui.select(options=lista_crs)
+    crs_selecionada = st.selectbox(label='Selecione a CRS', options=lista_crs)
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
