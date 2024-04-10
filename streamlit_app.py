@@ -125,10 +125,13 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 
 # Cards com as métricas
 with coluna_confirmados:
-    ui.metric_card(title="Confirmados", content=f'{total_confirmados}', description = f'{casos_novos_semana}')
-coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
-coluna_obitos.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
-coluna_notif.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
+    ui.metric_card(title="Confirmados", content=f'{total_confirmados}', description = f'{casos_novos_semana} novos casos')
+with coluna_porcentagem:
+    ui.metric_card(title='% confirmados', content=f'{valor_porcentagem}')
+with coluna_obitos:
+    ui.metric_card(title="Óbitos", content=f'{total_obitos}', description = f'{obitos_novos_semana} novos óbitos')
+with coluna_notif:
+    ui.metric_card(title="Notificações", content=f'{total_notific}', description = f'{notific_novos_semana} novas notificações')
        
 
 # Agrupe os dados pela semana epidemiológica e some os casos confirmados
