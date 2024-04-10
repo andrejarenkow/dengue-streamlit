@@ -4,6 +4,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import geopandas as gpd
+import streamlit_shadcn_ui as ui
 
 # Configurações da página
 st.set_page_config(
@@ -123,7 +124,8 @@ porcentagem_notificacoes = (total_confirmados*100/total_notificacoes).round(1)
 valor_porcentagem = f'{porcentagem_notificacoes}%'
 
 # Cards com as métricas
-coluna_confirmados.metric(label="Confirmados", value=total_confirmados, delta = casos_novos_semana, delta_color="inverse")
+with coluna_confirmados:
+    ui.metric_card(title="Confirmados", content=total_confirmados, description = f'{casos_novos_semana}', delta_color="inverse")
 coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
 coluna_obitos.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 coluna_notif.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
