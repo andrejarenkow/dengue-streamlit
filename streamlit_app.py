@@ -125,7 +125,7 @@ valor_porcentagem = f'{porcentagem_notificacoes}%'
 
 # Cards com as métricas
 with coluna_confirmados:
-    ui.metric_card(title="Confirmados", content=total_confirmados, description = f'{casos_novos_semana}')
+    ui.metric_card(title="Confirmados", content=f'{total_confirmados}', description = f'{casos_novos_semana}')
 coluna_porcentagem.metric(label='% confirmados', value=valor_porcentagem)
 coluna_obitos.metric(label="Óbitos", value=total_obitos, delta = obitos_novos_semana, delta_color="inverse")
 coluna_notif.metric(label="Notificações", value=total_notific, delta = notific_novos_semana, delta_color="inverse")
