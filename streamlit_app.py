@@ -40,6 +40,7 @@ with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
     lista_crs.insert(0, 'Todas')
     crs_selecionada = st.selectbox(label='Selecione a CRS', options=lista_crs)
+    st.write('')
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
