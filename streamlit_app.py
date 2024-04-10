@@ -38,8 +38,8 @@ ano = 2024
 # Qual index
 with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
-    lista_crs.append('Todas')
-    crs_selecionada = st.selectbox('Selecione a CRS', lista_crs, index=18)
+    lista_crs.insert(0, 'Todas')
+    crs_selecionada = ui.select(options=lista_crs)
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
