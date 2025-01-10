@@ -40,7 +40,7 @@ with container_filtros:
     crs_selecionada = st.selectbox(label='Selecione a CRS', options=lista_crs)
     st.write('')
 
-    ano = st.selectbox(label = 'Selecione o Ano', options = dados_dengue['Ano'].unique()) 
+    ano = st.selectbox(label = 'Selecione o Ano', options = sorted(dados_dengue['Ano'].unique()), index = 10)
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
