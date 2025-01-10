@@ -17,7 +17,7 @@ st.set_page_config(
 col1, col2, col3 = st.columns([1,4,1])
 
 col1.image('https://github.com/andrejarenkow/csv/blob/master/logo_cevs%20(2).png?raw=true', width=100)
-col2.header('Painel Regional Dengue, 2024')
+col2.header('Painel Regional Dengue')
 col3.image('https://github.com/andrejarenkow/csv/blob/master/logo_estado%20(3)%20(1).png?raw=true', width=150)
 
 #Layout padrão
@@ -33,14 +33,14 @@ dados_dengue = pd.read_csv(arquivo, sep=',', encoding='latin1')
 pop_municipios = pd.read_csv('https://raw.githubusercontent.com/andrejarenkow/csv/master/Munic%C3%ADpios%20RS%20IBGE6%20Popula%C3%A7%C3%A3o%20CRS%20Regional%20-%20P%C3%A1gina1.csv')
 pop_municipios['Município'] = pop_municipios['Município'].replace("Sant'Ana do Livramento", 'Santana do Livramento')
 
-ano = 2024
-
-# Qual index
+# Qual index 
 with container_filtros:
     lista_crs = sorted((dados_dengue['CRS'].unique()).tolist())
     lista_crs.insert(0, 'Todas')
     crs_selecionada = st.selectbox(label='Selecione a CRS', options=lista_crs)
     st.write('')
+
+    ano = st.selectbox(label = 'Selecione o Ano', options = dados_dengue['Ano'].unique()) 
 
 # Filtrar o dataframe
 if crs_selecionada == 'Todas':
