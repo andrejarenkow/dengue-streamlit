@@ -255,7 +255,7 @@ with aba_estimativa:
     # Filtrando o DataFrame de casos reais apenas para 2024
     dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==ano]
     # Juntar as colunas Ano e Semana Epidemiológica
-    dados_dengue_consolidados_2024['Semana Epidemiológica'] = dados_dengue_consolidados['Ano']*100 + dados_dengue_consolidados_2024['Semana Epidemiológica']
+    #dados_dengue_consolidados_2024['Semana Epidemiológica'] = dados_dengue_consolidados['Ano']*100 + dados_dengue_consolidados_2024['Semana Epidemiológica']
     #dados_dengue_consolidados_2024
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
     dados_estimativa['Ano_SE'] = dados_estimativa['SE'].astype(str).str[:4].astype(int)
@@ -263,7 +263,7 @@ with aba_estimativa:
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
     dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
     dados_estimativa_crs_pivot = pd.pivot_table(dados_estimativa_crs, index='SE', values=['casos_est','casos_est_min', 'casos_est_max'], aggfunc='sum').reset_index()
-    dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']
+    dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE'] - ano*100
     
     # Criando o gráfico com Plotly Express
     fig_est = px.line(title=f'Estimativa de casos de dengue e Confirmados em {ano}')
