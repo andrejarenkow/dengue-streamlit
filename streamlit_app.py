@@ -258,6 +258,8 @@ with aba_estimativa:
     dados_dengue_consolidados_2024['Semana Epidemiológica'] = dados_dengue_consolidados['Ano']*100 + dados_dengue_consolidados_2024['Semana Epidemiológica']
     #dados_dengue_consolidados_2024
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
+    dados_estimativa['Ano_SE'] = dados_estimativa['SE'].astype(str).str[:4].astype(int)
+    dados_estimativa = dados_estimativa[dados_estimativa['Ano_SE'] == ano]
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
     dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
     dados_estimativa_crs_pivot = pd.pivot_table(dados_estimativa_crs, index='SE', values=['casos_est','casos_est_min', 'casos_est_max'], aggfunc='sum').reset_index()
