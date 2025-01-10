@@ -253,12 +253,12 @@ with coluna_mapa_grafico_notificacoes:
 with aba_estimativa:
     coluna_grafico_estimativa, coluna_mapa_estimativa = st.columns(2)
     # Filtrando o DataFrame de casos reais apenas para 2024
-    dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==2024]
+    dados_dengue_consolidados_2024 = dados_dengue_consolidados#[dados_dengue_consolidados['Ano']==2024]
     dados_estimativa = pd.read_csv('https://drive.google.com/uc?export=download&id=14-srx6dAphqr6zTgQK2_9Rc4YqsFg4H7',sep=';')
     ibge_crs = pop_municipio_crs[['IBGE6', 'CRS']]
     dados_estimativa_crs = dados_estimativa.merge(ibge_crs, on='IBGE6', how='right')
     dados_estimativa_crs_pivot = pd.pivot_table(dados_estimativa_crs, index='SE', values=['casos_est','casos_est_min', 'casos_est_max'], aggfunc='sum').reset_index()
-    dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']-202400
+    dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']
     
     # Criando o gráfico com Plotly Express
     fig_est = px.line(title='Estimativa de casos de dengue e Confirmados em 2024')
