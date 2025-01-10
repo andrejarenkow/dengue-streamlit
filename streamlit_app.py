@@ -253,7 +253,7 @@ with coluna_mapa_grafico_notificacoes:
 with aba_estimativa:
     coluna_grafico_estimativa, coluna_mapa_estimativa = st.columns(2)
     # Filtrando o DataFrame de casos reais apenas para 2024
-    dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==2024]
+    dados_dengue_consolidados_2024 = dados_dengue_consolidados#[dados_dengue_consolidados['Ano']==2024]
     # Juntar as colunas Ano e Semana Epidemiológica
     dados_dengue_consolidados_2024['Semana Epidemiológica'] = dados_dengue_consolidados['Ano']*100 + dados_dengue_consolidados_2024['Semana Epidemiológica']
     #dados_dengue_consolidados_2024
@@ -303,6 +303,7 @@ O InfoDengue também realiza a detecção de situações atípicas, estimando li
 
     with coluna_mapa_estimativa:
         dados_estimativa_crs_mapa = dados_estimativa_crs.sort_values('SE').drop_duplicates(subset=['Municipio'], keep='last')
+        semana_epidemiologica_ultima = dados_estimativa_crs['SE'].unique()[0]
         dados_estimativa_crs_mapa_ibge =  municipios.merge(dados_estimativa_crs_mapa, left_on='CD_MUN', right_on='IBGE6').sort_values('nivel')
         map_fig_nivel = px.choropleth_mapbox(dados_estimativa_crs_mapa_ibge, geojson=dados_estimativa_crs_mapa_ibge.geometry,
                               locations=dados_estimativa_crs_mapa_ibge.index, color='nivel_descricao',
@@ -314,7 +315,7 @@ O InfoDengue também realiza a detecção de situações atípicas, estimando li
                               width=800,
                               height=600,
                               #template='plotly_dark',
-                              title = 'Nível de alerta InfoDengue por município, RS, 2024')
+                              title = f'Nível de alerta InfoDengue por município, RS, SE {semana_epidemiologica_ultima}')
     
         map_fig_nivel.update_layout(paper_bgcolor='rgba(0,0,0,0)', margin=go.layout.Margin(l=10, r=10, t=50, b=10),
                                           )
