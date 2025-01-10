@@ -253,7 +253,7 @@ with coluna_mapa_grafico_notificacoes:
 with aba_estimativa:
     coluna_grafico_estimativa, coluna_mapa_estimativa = st.columns(2)
     # Filtrando o DataFrame de casos reais apenas para 2024
-    dados_dengue_consolidados_2024 = dados_dengue_consolidados#[dados_dengue_consolidados['Ano']==2024]
+    dados_dengue_consolidados_2024 = dados_dengue_consolidados[dados_dengue_consolidados['Ano']==ano]
     # Juntar as colunas Ano e Semana Epidemiológica
     dados_dengue_consolidados_2024['Semana Epidemiológica'] = dados_dengue_consolidados['Ano']*100 + dados_dengue_consolidados_2024['Semana Epidemiológica']
     #dados_dengue_consolidados_2024
@@ -264,7 +264,7 @@ with aba_estimativa:
     dados_estimativa_crs_pivot['Semana Epidemiológica'] = dados_estimativa_crs_pivot['SE']
     
     # Criando o gráfico com Plotly Express
-    fig_est = px.line(title='Estimativa de casos de dengue e Confirmados em 2024')
+    fig_est = px.line(title=f'Estimativa de casos de dengue e Confirmados em {ano}')
 
     # Adicionando a linha de estimativa de casos (pontilhada)
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash', color='red'), name='Estimativa de casos', )    
