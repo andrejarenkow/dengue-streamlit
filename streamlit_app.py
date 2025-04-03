@@ -325,5 +325,5 @@ O InfoDengue também realiza a detecção de situações atípicas, estimando li
         map_fig_nivel.update_coloraxes(colorbar={'orientation':'h'},
                                  colorbar_yanchor='bottom',
                                  colorbar_y=-0.13)
-        st.plotly_chart(map_fig_nivel, use_container_width=True)
+        st.plotly_chart(map_fig_nivel, use_container_width=True, config={"scrollZoom": True})
     
