@@ -272,8 +272,8 @@ with aba_estimativa:
     fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est'], mode='lines+markers', line=dict(dash='dash', color='red'), name='Estimativa de casos', )    
     
     # Adicionando a área hachurada entre os valores mínimos e máximos de casos estimados
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', name='Intervalo estimado')
-    fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', showlegend=False)
+    #fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_min'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', name='Intervalo estimado')
+    #fig_est.add_scatter(x=dados_estimativa_crs_pivot['Semana Epidemiológica'], y=dados_estimativa_crs_pivot['casos_est_max'], fill='tonexty', mode='none', fillcolor='rgba(225,229,232,0.5)', showlegend=False)
 
 
     
